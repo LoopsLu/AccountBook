@@ -10,15 +10,15 @@ namespace AccountBook.Models.ViewModels
 {
     public enum CategoryEnum
     {
-        [Description("支出")]
-        Expense, 
-        [Description("收入")]
+        [Display(Name = "支出")]
+        Expense,
+        [Display(Name = "收入")]
         Income
     }
     public class AccountBookViewModel
     {
         [Display(Name = "類別")]
-        public CategoryEnum CategoryList { get; set; }
+        public CategoryEnum? CategoryList { get; set; }
 
         [Display(Name = "金額")]
         public decimal Value { get; set; }

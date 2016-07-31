@@ -41,27 +41,5 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>#</th>
-                    <th>類別</th>
-                    <th>日期</th>
-                    <th>金額</th>
-                </tr>
-                @foreach (var item in (List<AccountBook.Models.ViewModels.AccountBookViewModel>)ViewData["AccountBookQuery"])
-                {
-                    <tr>
-                        <td>@(item.Id)</td>
-                        <td>@(AccountBook.Helpers.EnumDataHelper<AccountBook.Models.ViewModels.CategoryEnum?>.GetDisplayValue(item.Category))</td>
-                        <td>@(item.DateTime.ToString("yyyy-MM-dd"))</td>
-                        <td>@(item.Value.ToString("#,###"))</td>
-                    </tr>
-                }
-            </table>
-        </div>
-    </div>
-
-</div>
+@*使用Partial的方式顯示List看看*@
+@Html.Partial("_accountBookList", (List<AccountBook.Models.ViewModels.AccountBookViewModel>)ViewData["AccountBookQuery"])

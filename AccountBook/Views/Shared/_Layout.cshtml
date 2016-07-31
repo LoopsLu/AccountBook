@@ -4,8 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的記帳本</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @* 如果使用這邊的css style，TextEditer等元件就不會向右延展貼滿頁面，要使用3.3.6的bootstrap才會有向右延展的效果
+    Styles.Render("~/Content/css")
+    Scripts.Render("~/bundles/modernizr")
+    *@
+
+    <link href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">

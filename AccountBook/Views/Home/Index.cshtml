@@ -7,9 +7,9 @@
 <div class="well">
     <div class="form-horizontal">
         <div class="form-group">
-            @Html.LabelFor(model => model.CategoryList, htmlAttributes: new { @class = "control-label col-sm-2" })
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-sm-2" })
             <div class="col-sm-10">
-                @Html.EnumDropDownListFor(model => model.CategoryList, "請選擇",new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EnumDropDownListFor(model => model.Category, "請選擇",new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
         <div class="form-group">
@@ -39,6 +39,7 @@
 </div>
 
 <div class="row">
+    @*
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
@@ -58,4 +59,27 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
+    *@
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>#</th>
+                    <th>類別</th>
+                    <th>日期</th>
+                    <th>金額</th>
+                </tr>
+                @foreach (var item in (List<AccountBook.Models.ViewModels.AccountBookViewModel>)ViewData["AccountBookQuery"])
+                {
+                    <tr>
+                        <td>@(item.Id)</td>
+                        <td>@(AccountBook.Helpers.EnumDataHelper<AccountBook.Models.ViewModels.CategoryEnum?>.GetDisplayValue(item.Category))</td>
+                        <td>@(item.DateTime.ToString("yyyy-MM-dd"))</td>
+                        <td>@(item.Value.ToString("#,###"))</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
 </div>

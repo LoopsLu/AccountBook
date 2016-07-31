@@ -17,8 +17,10 @@ namespace AccountBook.Models.ViewModels
     }
     public class AccountBookViewModel
     {
+        public int Id { get; set; }
+
         [Display(Name = "類別")]
-        public CategoryEnum? CategoryList { get; set; }
+        public CategoryEnum? Category { get; set; }
 
         [Display(Name = "金額")]
         public decimal Value { get; set; }

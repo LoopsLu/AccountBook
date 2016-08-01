@@ -1,4 +1,6 @@
-﻿@model List<AccountBook.Models.ViewModels.AccountBookViewModel>
+﻿@using AccountBook.Models.ViewModels
+@using AccountBook.Helpers
+@model IEnumerable<AccountBookViewModel>
 
 @{
     Layout = null;
@@ -11,16 +13,16 @@
                 <tr>
                     @*這邊用index取值，如果碰到model.count = 0 竟然不會會報錯*@
                     <th>#</th>
-                    <th>@Html.DisplayNameFor(model => model[0].Category)</th>
-                    <th>@Html.DisplayNameFor(model => model[0].DateTime)</th>
-                    <th>@Html.DisplayNameFor(model => model[0].Value)</th>
+                    <th>@Html.DisplayNameFor(model => model.Category)</th>
+                    <th>@Html.DisplayNameFor(model => model.DateTime)</th>
+                    <th>@Html.DisplayNameFor(model => model.Value)</th>
                 </tr>
                 @*@foreach (var item in (List<AccountBook.Models.ViewModels.AccountBookViewModel>)ViewData["AccountBookQuery"])*@
                 @foreach (var item in Model)
                     {
                         <tr>
                             <td>@(item.Id)</td>
-                            <td>@(AccountBook.Helpers.EnumDataHelper<AccountBook.Models.ViewModels.CategoryEnum?>.GetDisplayValue(item.Category))</td>
+                            <td>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(item.Category))</td>
                             <td>@(item.DateTime.ToString("yyyy-MM-dd"))</td>
                             <td>@(item.Value.ToString("#,###"))</td>
                         </tr>

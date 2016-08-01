@@ -19,7 +19,7 @@ namespace AccountBook.Controllers
             };
             ViewData["AccountBookQuery"] = viewModel;
 
-            return View();
+            return View(viewModel);
         }
 
         public ActionResult About()

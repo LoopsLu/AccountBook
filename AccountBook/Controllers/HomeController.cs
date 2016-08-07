@@ -10,19 +10,16 @@ namespace AccountBook.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly RecordService _recordSvc;
+
+        public HomeController()
+        {
+            _recordSvc = new RecordService();
+        }
+
         public ActionResult Index()
         {
-            var dbModel = new AccountBookRecordModel();
-            var viewModel = dbModel.AccountBook.Select(x =>
-            new AccountBookViewModel
-            {
-                Category = (CategoryEnum)x.Categoryyy,
-                Value = x.Amounttt,
-                DateTime = x.Dateee,
-                Comment = x.Remarkkk
-            });
-
-            return View(viewModel);
+            return View(_recordSvc.GetAll());
         }
 
         public ActionResult About()

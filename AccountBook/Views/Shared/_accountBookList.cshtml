@@ -17,16 +17,18 @@
                     <th>@Html.DisplayNameFor(model => model.DateTime)</th>
                     <th>@Html.DisplayNameFor(model => model.Value)</th>
                 </tr>
-                @*@foreach (var item in (List<AccountBook.Models.ViewModels.AccountBookViewModel>)ViewData["AccountBookQuery"])*@
-                @foreach (var item in Model)
+                @{
+                    var i = 1;
+                    foreach (var item in Model)
                     {
                         <tr>
-                            <td>@(item.Id)</td>
+                            <td>@(i++)</td>
                             <td>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(item.Category))</td>
                             <td>@(item.DateTime.ToString("yyyy-MM-dd"))</td>
                             <td>@(item.Value.ToString("#,###"))</td>
                         </tr>
                     }
+                }
                 </table>
             </div>
         </div>

@@ -1,5 +1,6 @@
 ﻿using AccountBook.Models;
 using AccountBook.Models.ViewModels;
+using AccountBook.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace AccountBook.Controllers
 
         public HomeController()
         {
-            _recordSvc = new RecordService();
+            var unitOfWork = new EFUnitOfWork();
+            _recordSvc = new RecordService(unitOfWork);
         }
 
         public ActionResult Index()

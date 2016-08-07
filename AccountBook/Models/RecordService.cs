@@ -1,4 +1,5 @@
 ﻿using AccountBook.Models.ViewModels;
+using AccountBook.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,18 +7,19 @@ using System.Web;
 
 namespace AccountBook.Models
 {
-    public class RecordService
+    public class RecordService : Repository<AccountBook>
     {
-        private readonly AccountBookRecordModel _db;
 
-        public RecordService()
+        private readonly IRepository<AccountBook> _accountBookRep;
+
+        public RecordService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _db = new AccountBookRecordModel();
+            _accountBookRep = new Repository<AccountBook>(unitOfWork);
         }
 
         public IEnumerable<AccountBookViewModel> GetAll()
         {
-            var viewModel = _db.AccountBook.Select(x =>
+            return _accountBookRep.LookupAll().Select(x =>
             new AccountBookViewModel
             {
                 Category = (CategoryEnum)x.Categoryyy,
@@ -25,7 +27,7 @@ namespace AccountBook.Models
                 DateTime = x.Dateee,
                 Comment = x.Remarkkk
             });
-            return viewModel;
         }
+
     }
 }

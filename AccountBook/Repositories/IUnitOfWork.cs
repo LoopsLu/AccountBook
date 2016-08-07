@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AccountBook.Repositories
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         DbContext Context { get; set; }
     }

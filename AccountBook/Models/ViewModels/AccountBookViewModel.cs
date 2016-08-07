@@ -13,8 +13,7 @@ namespace AccountBook.Models.ViewModels
         [Display(Name = "支出")]
         Expense,
         [Display(Name = "收入")]
-        Income,
-        收入
+        Income
     }
     public class AccountBookViewModel
     {

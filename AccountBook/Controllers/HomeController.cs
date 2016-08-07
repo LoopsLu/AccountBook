@@ -1,4 +1,5 @@
-﻿using AccountBook.Models.ViewModels;
+﻿using AccountBook.Models;
+using AccountBook.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,15 @@ namespace AccountBook.Controllers
     {
         public ActionResult Index()
         {
-            List<AccountBookViewModel> viewModel = new List<AccountBookViewModel>()
+            var dbModel = new AccountBookRecordModel();
+            var viewModel = dbModel.AccountBook.Select(x =>
+            new AccountBookViewModel
             {
-                new AccountBookViewModel() { Id = 1, Category = CategoryEnum.Expense, DateTime = new DateTime(2016, 1, 1), Value = 300 },
-                new AccountBookViewModel() { Id = 2, Category = CategoryEnum.Expense, DateTime = new DateTime(2016, 1, 2), Value = 1600 },
-                new AccountBookViewModel() { Id = 3, Category = CategoryEnum.Expense, DateTime = new DateTime(2016, 1, 3), Value = 800 }
-            };
-            ViewData["AccountBookQuery"] = viewModel;
+                Category = (CategoryEnum)x.Categoryyy,
+                Value = x.Amounttt,
+                DateTime = x.Dateee,
+                Comment = x.Remarkkk
+            });
 
             return View(viewModel);
         }

@@ -11,9 +11,9 @@ namespace AccountBook.Models.ViewModels
     public enum CategoryEnum
     {
         [Display(Name = "支出")]
-        Expense,
+        Expense = 0,
         [Display(Name = "收入")]
-        Income
+        Income = 1
     }
     public class AccountBookViewModel
     {

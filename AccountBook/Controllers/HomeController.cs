@@ -44,28 +44,21 @@ namespace AccountBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(IndexViewModel viewModel)
+        public ActionResult CreateAccountRecordAndShowResult(IndexViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 viewModel.AccountRecord.Id = Guid.NewGuid();
                 _recordSvc.Add(viewModel.AccountRecord);
                 _recordSvc.Save();
-                return RedirectToAction("Index");
+                return View(_recordSvc.GetAll().OrderByDescending(x => x.DateTime));
             }
-            var result = new IndexViewModel()
-            {
-                AccountRecord = new AccountBookRecordViewModel()
-                {
-                    Id = viewModel.AccountRecord.Id,
-                    Category = viewModel.AccountRecord.Category,
-                    Value = viewModel.AccountRecord.Value,
-                    Comment = viewModel.AccountRecord.Comment,
-                    DateTime = viewModel.AccountRecord.DateTime
-                },
-                RecordQueryResult = _recordSvc.GetAll().OrderByDescending(x => x.DateTime)
-            };
-            return View(result);
+
+            // 想要在回傳資料為null時跳出錯誤，
+            // 但是在Index中用AJAX的OnFailure，無論成功或失敗都會執行alert
+            // 在_accountBookList加入alert，卻怎麼也不alert
+            // 但是在CreateAccountRecordAndShowResult寫入判斷式後卻可以成功顯示alert...
+            return View();
         }
     }
 }

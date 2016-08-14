@@ -1,0 +1,14 @@
+﻿@using AccountBook.Models.ViewModels
+@using AccountBook.Helpers
+@model IEnumerable<AccountBookRecordViewModel>
+
+@if (Model == null)
+{
+    Layout = null;
+    <script>alert("輸入錯誤");</script>
+}
+else
+{
+    Layout = "~/Views/Shared/_accountBookList.cshtml";
+}
+

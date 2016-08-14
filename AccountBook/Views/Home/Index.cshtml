@@ -7,10 +7,21 @@
 }
 
 <div class="well">
-    @*這裡不加入兩個<hr/>的話，第一個DropdownList會被Header Menu遮掉*@
-    <hr />
-    <hr />
-    @using (Html.BeginForm())
+    
+
+</div>
+
+@*這裡不加入兩個<hr/>的話，第一個DropdownList會被Header Menu遮掉*@
+<hr />
+<hr />
+
+<div class="well">
+
+    @using (Ajax.BeginForm(new AjaxOptions
+    {
+        UpdateTargetId = "RecordQueryResult",
+        Url = Url.Action("CreateAccountRecordAndShowResult"),
+    }))
     {
         @Html.AntiForgeryToken()
 
@@ -20,7 +31,7 @@
                 <div class="col-sm-10">
                     @*這邊的CategoryEnum取得DisplayValue的方式蠻複雜的，後來查詢到可以使用「中文」的Enum....
                         不過如果呈現的名稱有空格或是其他奇怪的東西，可能還是得用GetDisplayValue來呈現*@
-                    @Html.DropDownListFor(model=>model.AccountRecord.Category,
+                    @Html.DropDownListFor(model => model.AccountRecord.Category,
                new List<System.Web.Mvc.SelectListItem>()
                {
                    new SelectListItem { Text = "請選擇" },
@@ -34,31 +45,44 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AccountRecord.Value, htmlAttributes: new { @class = "control-label col-sm-2" })
                 <div class="col-sm-10">
-                    @Html.EditorFor(model=>model.AccountRecord.Value, new { htmlAttributes = new { @class = "form-control", @placeholder = "金額", @id = "Value" } })
+                    @Html.EditorFor(model => model.AccountRecord.Value, new { htmlAttributes = new { @class = "form-control", @placeholder = "金額", @id = "Value" } })
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.AccountRecord.DateTime, htmlAttributes: new { @class = "control-label col-sm-2" })
                 <div class="col-sm-10">
-                    @Html.EditorFor(model=>model.AccountRecord.DateTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "日期", @id = "DateTime" } })
+                    @Html.EditorFor(model => model.AccountRecord.DateTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "日期", @id = "DateTime" } })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.AccountRecord.Comment, htmlAttributes: new { @class = "control-label col-sm-2" })
                 <div class="col-sm-10">
-                    @Html.TextAreaFor(model=>model.AccountRecord.Comment, htmlAttributes: new { @class = "form-control", @id = "Comment" })
+                    @Html.TextAreaFor(model => model.AccountRecord.Comment, htmlAttributes: new { @class = "form-control", @id = "Comment" })
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-8 col-sm-4">
-                    <button type="submit" value="Index" class="btn btn-default">送出</button>
+                    <button type="submit" class="btn btn-default">送出</button>
                 </div>
             </div>
         </div>
     }
-    
+
 </div>
 
-@*使用Partial的方式顯示List看看*@
-@Html.Partial("_accountBookList", Model.RecordQueryResult)
+@*使用AJAX的方式顯示List看看*@
+<div id="RecordQueryResult">
+   @Html.Partial("_accountBookList", Model.RecordQueryResult)
+</div>
+
+
+@*
+    AJAX成功執行的條件：
+    1. 記得安裝Microsoft.jQuery.Unobstusive.Ajax以及jQuery.Unobstusive.Ajax
+    2. View程式馬最下端要引用script
+*@
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

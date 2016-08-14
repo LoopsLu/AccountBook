@@ -15,9 +15,9 @@ namespace AccountBook.Models.ViewModels
         [Display(Name = "收入")]
         Income = 1
     }
-    public class AccountBookViewModel
+    public class AccountBookRecordViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "類別")]
         public CategoryEnum? Category { get; set; }

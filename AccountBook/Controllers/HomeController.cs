@@ -21,7 +21,11 @@ namespace AccountBook.Controllers
 
         public ActionResult Index()
         {
-            return View(_recordSvc.GetAll());
+            var indexViewModel = new IndexViewModel()
+            {
+                RecordQueryResult = _recordSvc.GetAll()
+            };
+            return View(indexViewModel);
         }
 
         public ActionResult About()
@@ -36,6 +40,31 @@ namespace AccountBook.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //public ActionResult CreateAccountRecord([Bind(Include = "Id,Category,Value,DateTime,Comment")] AccountBookViewModel accountRecord)
+        public ActionResult Index(IndexViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            var result = new IndexViewModel()
+            {
+                AccountRecord = new AccountBookRecordViewModel()
+                {
+                    Id = viewModel.AccountRecord.Id,
+                    Category = viewModel.AccountRecord.Category,
+                    Value = viewModel.AccountRecord.Value,
+                    Comment = viewModel.AccountRecord.Comment,
+                    DateTime = viewModel.AccountRecord.DateTime
+                },
+                RecordQueryResult = viewModel.RecordQueryResult
+                
+            };
+            return View(result);
         }
     }
 }

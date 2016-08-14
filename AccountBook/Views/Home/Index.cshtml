@@ -1,6 +1,6 @@
 ﻿@using AccountBook.Models.ViewModels
 @using AccountBook.Helpers
-@model IEnumerable<AccountBookViewModel>
+@model IndexViewModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -10,13 +10,17 @@
     @*這裡不加入兩個<hr/>的話，第一個DropdownList會被Header Menu遮掉*@
     <hr />
     <hr />
-    <div class="form-horizontal">
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstOrDefault().Category, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @*這邊的CategoryEnum取得DisplayValue的方式蠻複雜的，後來查詢到可以使用「中文」的Enum....
-                    不過如果呈現的名稱有空格或是其他奇怪的東西，可能還是得用GetDisplayValue來呈現*@
-                @Html.DropDownList("Category",
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountRecord.Category, htmlAttributes: new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @*這邊的CategoryEnum取得DisplayValue的方式蠻複雜的，後來查詢到可以使用「中文」的Enum....
+                        不過如果呈現的名稱有空格或是其他奇怪的東西，可能還是得用GetDisplayValue來呈現*@
+                    @Html.DropDownList("Category",
                new List<System.Web.Mvc.SelectListItem>()
                {
                    new SelectListItem { Text = "請選擇" },
@@ -24,35 +28,37 @@
                    new SelectListItem { Text = EnumDataHelper<CategoryEnum>.GetDisplayValue(CategoryEnum.Income) }
                },
                htmlAttributes: new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstOrDefault().Value, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.Editor("Money", String.Empty, new { htmlAttributes = new { @class = "form-control", @placeholder = "金額" } })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstOrDefault().DateTime, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.Editor("DateTime", String.Empty, new { htmlAttributes = new { @class = "form-control", @placeholder = "日期" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountRecord.Value, htmlAttributes: new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.Editor("Money", String.Empty, new { htmlAttributes = new { @class = "form-control", @placeholder = "金額" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountRecord.DateTime, htmlAttributes: new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.Editor("DateTime", String.Empty, new { htmlAttributes = new { @class = "form-control", @placeholder = "日期" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountRecord.Comment, htmlAttributes: new { @class = "control-label col-sm-2" })
+                <div class="col-sm-10">
+                    @Html.TextArea("Comment", String.Empty, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-8 col-sm-4">
+                    <button type="submit" value="Index" class="btn btn-default">送出</button>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstOrDefault().Comment, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.TextArea("Comment", String.Empty, htmlAttributes: new { @class = "form-control" } )
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-8 col-sm-4">
-                <button type="submit" class="btn btn-default">送出</button>
-            </div>
-        </div>
-    </div>
+    }
+    
 </div>
 
 @*使用Partial的方式顯示List看看*@
-@Html.Partial("_accountBookList", Model)
+@Html.Partial("_accountBookList", Model.RecordQueryResult)

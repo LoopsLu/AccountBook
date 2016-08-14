@@ -44,7 +44,6 @@ namespace AccountBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public ActionResult CreateAccountRecord([Bind(Include = "Id,Category,Value,DateTime,Comment")] AccountBookViewModel accountRecord)
         public ActionResult Index(IndexViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -61,8 +60,7 @@ namespace AccountBook.Controllers
                     Comment = viewModel.AccountRecord.Comment,
                     DateTime = viewModel.AccountRecord.DateTime
                 },
-                RecordQueryResult = viewModel.RecordQueryResult
-                
+                RecordQueryResult = _recordSvc.GetAll()
             };
             return View(result);
         }

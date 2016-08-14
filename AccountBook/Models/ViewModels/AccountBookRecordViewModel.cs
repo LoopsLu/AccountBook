@@ -15,6 +15,8 @@ namespace AccountBook.Models.ViewModels
         [Display(Name = "收入")]
         Income = 1
     }
+
+    [Bind(Include = "Id,Category,Value,DateTime,Comment")]
     public class AccountBookRecordViewModel
     {
         public Guid Id { get; set; }

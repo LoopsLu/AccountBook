@@ -23,7 +23,7 @@ namespace AccountBook.Controllers
         {
             var indexViewModel = new IndexViewModel()
             {
-                RecordQueryResult = _recordSvc.GetAll()
+                RecordQueryResult = _recordSvc.GetAll().OrderByDescending(x=>x.DateTime)
             };
             return View(indexViewModel);
         }
@@ -63,7 +63,7 @@ namespace AccountBook.Controllers
                     Comment = viewModel.AccountRecord.Comment,
                     DateTime = viewModel.AccountRecord.DateTime
                 },
-                RecordQueryResult = _recordSvc.GetAll()
+                RecordQueryResult = _recordSvc.GetAll().OrderByDescending(x => x.DateTime)
             };
             return View(result);
         }

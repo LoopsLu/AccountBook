@@ -22,6 +22,7 @@ namespace AccountBook.Models
             return _accountBookRep.LookupAll().Select(x =>
             new AccountBookViewModel
             {
+                // 這邊應該要做防禦設計，以防Categoryyy沒有在Enum的結果裡面
                 Category = (CategoryEnum)x.Categoryyy,
                 Value = x.Amounttt,
                 DateTime = x.Dateee,

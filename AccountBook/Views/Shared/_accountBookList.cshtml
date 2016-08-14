@@ -23,7 +23,7 @@
                     {
                         <tr>
                             <td>@(i++)</td>
-                            <td>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(item.Category))</td>
+                            <td>@CategoryEnumToColorString(item.Category)</td>
                             <td>@(item.DateTime.ToString("yyyy-MM-dd"))</td>
                             <td>@(item.Value.ToString("#,###"))</td>
                         </tr>
@@ -33,3 +33,21 @@
             </div>
         </div>
     </div>
+
+@functions
+{
+    /// <summary>
+    /// 當Category為Income，文字顯示為藍色，否則為紅色
+    /// </summary>
+    /// <param name="category">收入或支出</param>
+    /// <returns></returns>
+}
+@helper CategoryEnumToColorString(CategoryEnum? category)
+{
+        string color;
+        if (category == CategoryEnum.Income)
+        { color = "blue"; }
+        else
+        { color = "red"; }
+        <font color=@color>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(category))</font>   
+}

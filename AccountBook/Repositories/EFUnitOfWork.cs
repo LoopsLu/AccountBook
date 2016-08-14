@@ -20,5 +20,10 @@ namespace AccountBook.Repositories
         {
             Context.Dispose();
         }
+
+        public void Save()
+        {
+            Context.SaveChanges();
+        }
     }
 }

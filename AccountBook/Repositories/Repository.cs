@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using AccountBook.Models;
 
 namespace AccountBook.Repositories
 {
@@ -31,6 +32,16 @@ namespace AccountBook.Repositories
         public IQueryable<T> LookupAll()
         {
             return ObjectSet;
+        }
+
+        public void Create(T entity)
+        {
+            ObjectSet.Add(entity);
+        }
+
+        public void Commit()
+        {
+            UnitOfWork.Save();
         }
     }
 }

@@ -48,6 +48,9 @@ namespace AccountBook.Controllers
         {
             if (ModelState.IsValid)
             {
+                viewModel.AccountRecord.Id = Guid.NewGuid();
+                _recordSvc.Add(viewModel.AccountRecord);
+                _recordSvc.Save();
                 return RedirectToAction("Index");
             }
             var result = new IndexViewModel()

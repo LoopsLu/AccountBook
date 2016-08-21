@@ -28,6 +28,7 @@ namespace AccountBook.Models.ViewModels
 
         [Required]
         [DecimalMustBiggerThanZero()]
+        [DecimalIntegerOnly]
         [Display(Name = "金額")]
         public decimal Value { get; set; }
 

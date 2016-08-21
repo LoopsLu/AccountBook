@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AccountBook.Filters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -31,6 +32,7 @@ namespace AccountBook.Models.ViewModels
 
         [Required]
         [Display(Name = "日期")]
+        [IsExceedTodayValid(false)]
         public DateTime DateTime { get; set; }
 
         [Required]

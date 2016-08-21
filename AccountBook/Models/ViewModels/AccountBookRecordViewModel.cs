@@ -21,15 +21,19 @@ namespace AccountBook.Models.ViewModels
     {
         public Guid Id { get; set; }
 
+        [Required]
         [Display(Name = "類別")]
         public CategoryEnum? Category { get; set; }
 
+        [Required]
         [Display(Name = "金額")]
         public decimal Value { get; set; }
 
+        [Required]
         [Display(Name = "日期")]
         public DateTime DateTime { get; set; }
 
+        [Required]
         [Display(Name = "備註")]
         public string Comment { get; set; }
     }

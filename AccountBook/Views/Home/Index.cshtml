@@ -39,6 +39,7 @@
                    new SelectListItem { Text = EnumDataHelper<CategoryEnum>.GetDisplayValue(CategoryEnum.Income), Value = ((int)CategoryEnum.Income).ToString() }
                },
                htmlAttributes: new { @class = "form-control", @id = "Category" })
+                    @Html.ValidationMessageFor(model => model.AccountRecord.Category, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -46,6 +47,7 @@
                 @Html.LabelFor(model => model.AccountRecord.Value, htmlAttributes: new { @class = "control-label col-sm-2" })
                 <div class="col-sm-10">
                     @Html.EditorFor(model => model.AccountRecord.Value, new { htmlAttributes = new { @class = "form-control", @placeholder = "金額", @id = "Value" } })
+                    @Html.ValidationMessageFor(model => model.AccountRecord.Value, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -53,12 +55,14 @@
                 @Html.LabelFor(model => model.AccountRecord.DateTime, htmlAttributes: new { @class = "control-label col-sm-2" })
                 <div class="col-sm-10">
                     @Html.EditorFor(model => model.AccountRecord.DateTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "日期", @id = "DateTime" } })
+                    @Html.ValidationMessageFor(model => model.AccountRecord.DateTime, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.AccountRecord.Comment, htmlAttributes: new { @class = "control-label col-sm-2" })
                 <div class="col-sm-10">
                     @Html.TextAreaFor(model => model.AccountRecord.Comment, htmlAttributes: new { @class = "form-control", @id = "Comment" })
+                    @Html.ValidationMessageFor(model => model.AccountRecord.Comment, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
@@ -80,9 +84,15 @@
 @*
     AJAX成功執行的條件：
     1. 記得安裝Microsoft.jQuery.Unobstusive.Ajax以及jQuery.Unobstusive.Ajax
-    2. View程式馬最下端要引用script
+    2. View程式碼最下端要引用script
+
+    Validate成功執行的條件：
+    1. View程式碼最下端要引用script
 *@
 @section scripts{
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 }

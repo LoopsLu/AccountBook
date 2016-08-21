@@ -49,5 +49,13 @@
         { color = "blue"; }
         else
         { color = "red"; }
-        <font color=@color>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(category))</font>   
+        <font color=@color>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(category))</font>
+        
+        /* 改用span 和 style是否就可以？
+        if (category == CategoryEnum.Income)
+        { color = "color:blue;"; }
+        else
+        { color = "color:red"; }
+        <span style=@color>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(category))</span>
+        */
 }

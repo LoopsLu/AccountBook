@@ -27,12 +27,13 @@ namespace AccountBook.Models.ViewModels
         public CategoryEnum? Category { get; set; }
 
         [Required]
+        [DecimalMustBiggerThanZero()]
         [Display(Name = "金額")]
         public decimal Value { get; set; }
 
         [Required]
-        [Display(Name = "日期")]
         [IsExceedTodayValid(false)]
+        [Display(Name = "日期")]
         public DateTime DateTime { get; set; }
 
         [Required]

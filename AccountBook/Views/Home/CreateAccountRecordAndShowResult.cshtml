@@ -1,14 +1,76 @@
-﻿@using AccountBook.Models.ViewModels
+﻿@*
+        用這個寫法，如果我的ModelState是Valid，頁面程序有走進_accountBookList.cshtml，
+    但是在Index上卻不會更新<div>包住的區塊；
+    可是這個寫法，卻可以在我的model為null時，執行alert
+
+    @if (Model == null)
+    {
+        Layout = null;
+        <script>alert("輸入錯誤");</script>
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_accountBookList.cshtml";
+    }
+*@
+@using AccountBook.Models.ViewModels
 @using AccountBook.Helpers
 @model IEnumerable<AccountBookRecordViewModel>
 
-@if (Model == null)
-{
+@{
     Layout = null;
-    <script>alert("輸入錯誤");</script>
-}
-else
-{
-    Layout = "~/Views/Shared/_accountBookList.cshtml";
 }
 
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    @*這邊用index取值，如果碰到model.count = 0 竟然不會會報錯*@
+                    <th>#</th>
+                    <th>@Html.DisplayNameFor(model => model.Category)</th>
+                    <th>@Html.DisplayNameFor(model => model.DateTime)</th>
+                    <th>@Html.DisplayNameFor(model => model.Value)</th>
+                </tr>
+                @{
+                    var i = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(i++)</td>
+                            <td>@CategoryEnumToColorString(item.Category)</td>
+                            <td>@(item.DateTime.ToString("yyyy-MM-dd"))</td>
+                            <td>@(item.Value.ToString("#,###"))</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+@functions
+{
+/// <summary>
+/// 當Category為Income，文字顯示為藍色，否則為紅色
+/// </summary>
+/// <param name="category">收入或支出</param>
+/// <returns></returns>
+}
+@helper CategoryEnumToColorString(CategoryEnum? category)
+{
+string color;
+if (category == CategoryEnum.Income)
+{ color = "blue"; }
+else
+{ color = "red"; }
+    <font color=@color>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(category))</font>
+
+/* 改用span 和 style是否就可以？
+if (category == CategoryEnum.Income)
+{ color = "color:blue;"; }
+else
+{ color = "color:red"; }
+<span style=@color>@(EnumDataHelper<CategoryEnum?>.GetDisplayValue(category))</span>
+*/
+}

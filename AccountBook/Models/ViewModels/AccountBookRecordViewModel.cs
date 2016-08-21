@@ -34,6 +34,7 @@ namespace AccountBook.Models.ViewModels
         public DateTime DateTime { get; set; }
 
         [Required]
+        [StringLength(100)]
         [Display(Name = "備註")]
         public string Comment { get; set; }
     }
